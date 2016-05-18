@@ -428,6 +428,12 @@ is divided into following sections:
                     <jvmarg value="-ea"/>
                     <customize/>
                 </junit>
+                <junitreport todir = "${test.src.dir}">
+                    <fileset dir = "${build.test.results.dir}">
+                        <include name = "TEST-*.xml"/>
+                    </fileset>
+                    <report todir = "${test.src.dir}/html"/>
+                </junitreport>
             </sequential>
         </macrodef>
     </target>
