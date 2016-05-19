@@ -62,7 +62,7 @@ public class CarregaArquivo {
                     parts = linha.split(" ");
                     numDias = Integer.parseInt(parts[0]);
                 }
-                //Fechar o arquivo
+                //Fecha o arquivo
                 arq.close();
                 //Retorna os menus carregados
                 return menus;

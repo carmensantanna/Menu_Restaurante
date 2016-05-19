@@ -35,7 +35,7 @@ public class MetodoGuloso implements IMetodo{
             //Verifica se ainda está dentro do orçamento
             if(quantOrc <= menu.getOrcamento())
             {
-              //Verifica se o prato não está sendo repetido
+              //Verifica se o prato está ou não sendo repetido
               if(pratoAtual.getIdPrato() != ultimoPrato.getIdPrato())
                   ultimoPrato.setRepetido(0);
               //Soma o lucro do prato no lucro total (lucro máximo)
