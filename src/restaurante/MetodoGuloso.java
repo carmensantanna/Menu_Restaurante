@@ -5,6 +5,8 @@
  */
 package restaurante;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Carmen
@@ -12,15 +14,17 @@ package restaurante;
 public class MetodoGuloso implements IMetodo{
     
     private double lucroMax;
-    private double[] razao;
+    
     //Calcula e retorna o lucro máximo de um determinado menu
-    public double calculaLucro(Menu menu)
+    public ArrayList<Prato> calculaLucro(Menu menu)
     {
         double quantOrc = 0;
         lucroMax = 0;
         Prato pratoAtual, ultimoPrato = new Prato();
         //Pega todos os pratos do menu
         Prato[] pratos = menu.getPratos();
+        //Pratos que devem ser preparados para obter o lucro máximo
+        ArrayList<Prato> pratosLucro = new ArrayList<Prato>();
         //Instancia objeto da classe de ordenação
         QuickSort ordena = new QuickSort();
         //Para cada dia do cardápio calcula o prato que possui a melhor razão(lucro/custo)
@@ -40,15 +44,23 @@ public class MetodoGuloso implements IMetodo{
                   ultimoPrato.setRepetido(0);
               //Soma o lucro do prato no lucro total (lucro máximo)
               lucroMax += pratoAtual.getLucroAtual();
+              //Adiciona o prato atual na lista de pratos que compõe o lucro máximo
+              pratosLucro.add(pratoAtual);
               //Marca que este prato foi utilizado
               pratoAtual.repetePrato();
               //Guarda o prato atual para verificar se será repetido no próximo dia
               ultimoPrato = pratoAtual;
             }
-            else //Orçamento estourado
+            else{ //Orçamento estourado
                 lucroMax = 0;
+                pratosLucro = new ArrayList<Prato>();
+            }
         }
         //Retorna o lucro máximo calculado 
+        return pratosLucro;
+    }
+
+    public double getLucroMax() {
         return lucroMax;
     }
 }

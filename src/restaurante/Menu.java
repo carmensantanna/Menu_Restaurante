@@ -6,6 +6,7 @@
 package restaurante;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 /**
  *
  * @author Carmen
@@ -62,11 +63,12 @@ public class Menu {
         contPratos++;
     }
     
-    public double calcLucroMax()
+    public ArrayList<Prato> calcLucroMax()
     {
-        this.maxLucro = tipoMetodo.calculaLucro(this);
+        ArrayList<Prato> pratosLucro = tipoMetodo.calculaLucro(this);
+        this.maxLucro = tipoMetodo.getLucroMax();
         
-        return this.maxLucro;
+        return pratosLucro;
     }
     
     public void exibeMenu()
@@ -77,6 +79,17 @@ public class Menu {
                            "Quantidade de dias: " + quantDias + "\n" +
                            "Número de pratos: " + numPratos + "\n" +
                            "Orçamento: " + orcamento);
+    }
+    
+    public Prato getPrato(int idPrato)
+    {
+        for(int i = 0; i < this.getNumPratos(); i++)
+        {
+            if(pratos[i].getIdPrato() == idPrato)
+                return pratos[i];
+        }
+        
+        return null;
     }
 
     public int getIdMenu() {

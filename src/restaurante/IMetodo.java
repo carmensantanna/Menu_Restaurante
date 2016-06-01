@@ -5,12 +5,14 @@
  */
 package restaurante;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Carmen
  */
 public interface IMetodo {
     
-    public double calculaLucro(Menu menu);
-    
+    public ArrayList<Prato> calculaLucro(Menu menu);
+    public double getLucroMax();
 }

@@ -58,7 +58,8 @@ public class MetodoGulosoTest {
         
         MetodoGuloso instance = new MetodoGuloso();
         double expResult = 13.0;
-        double result = instance.calculaLucro(menu);
+        instance.calculaLucro(menu);
+        double result = menu.getMaxLucro();
         assertEquals(expResult, result, 0.0);
     }
     

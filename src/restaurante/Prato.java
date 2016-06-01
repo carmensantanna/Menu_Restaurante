@@ -29,9 +29,9 @@ public class Prato {
     
     public Prato()
     {
+        this.idPrato = contID++;
         NumberFormat formatter = new DecimalFormat("00");
         String num = formatter.format(idPrato);
-        this.idPrato = contID++;
         this.nomePrato = num;
         this.contRepeticao = 0;
         this.custo = this.lucro = this.lucroAtual = this.razao = 0;
@@ -39,9 +39,9 @@ public class Prato {
     
     public Prato(double custo, double lucro)
     {
+        this.idPrato = contID++;
         NumberFormat formatter = new DecimalFormat("00");
         String num = formatter.format(idPrato);
-        this.idPrato = contID++;
         this.nomePrato = num;
         this.custo = custo;
         this.lucro = lucro;
@@ -59,6 +59,11 @@ public class Prato {
             this.lucroAtual = 0;
         
         this.razao = this.lucroAtual / this.lucro;
+    }
+    
+    public void exibe()
+    {
+        System.out.println("Prato " + this.nomePrato);
     }
 
     public int getIdPrato() {

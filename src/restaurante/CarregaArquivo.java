@@ -33,7 +33,7 @@ public class CarregaArquivo {
                 BufferedReader leArq = new BufferedReader(arq);
                 //Variáveis utilizadas
                 Menu menu = new Menu();
-                Prato prato = new Prato();
+                Prato prato = null;
                 int numDias, quantPrato;
                 double orcamento, custo, lucro;
                 //Lê a primeira linha do arquivo

@@ -5,6 +5,8 @@
  */
 package restaurante;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Carmen
@@ -13,12 +15,20 @@ public class MetodoDinamico implements IMetodo {
 
     private double lucroMax;
 
-    public double calculaLucro(Menu menu) {
+    public ArrayList<Prato> calculaLucro(Menu menu) {
         int days = menu.getQuantDias();
         int budget = (int) menu.getOrcamento();
         int N = menu.getNumPratos();
         int[] cost = new int[N];
         int[] ben = new int[N];
+        Prato[] pratos = menu.getPratos();
+        ArrayList<Prato> pratosLucro = new ArrayList<Prato>();
+        
+        for(int i = 0; i < pratos.length; i++)
+        {
+            cost[i] = (int) pratos[i].getCusto();
+            ben[i] = (int) pratos[i].getLucro();
+        }
 
         // ans[daysleft][budgetleft][yesterday][doubleormore]
         double[][][][] ans = new double[days][budget + 1][N][2];
@@ -91,7 +101,8 @@ public class MetodoDinamico implements IMetodo {
         }
         double best = finans[budget];
 
-        while (budget > 0 && Math.abs(finans[budget - 1] - finans[budget]) < 1e-6) {
+        while (budget > 0 && Math.abs(finans[budget - 1] - finans[budget]) < 1E-6) {
+        //while (budget > 0 && Math.abs(finans[budget - 1] - finans[budget]) < 0.000001) {
             budget--;
         }
         //System.out.printf("%.1f\n", best);
@@ -113,7 +124,7 @@ public class MetodoDinamico implements IMetodo {
         double cur = cost[items[0]];
 
         int curi = days - 1, curj = budget - cost[items[0]], curk = items[0], curl = 0;
-        while (curi > 0) {
+        while (curi > 0 && curj > 0) {
             for (int item = 0; item < N; item++) {
                 if (cost[item] > curj) {
                     continue;
@@ -132,7 +143,8 @@ public class MetodoDinamico implements IMetodo {
                 } else {
                     b = ben[item];
                 }
-                if (Math.abs(next + b - ans[curi][curj][curk][curl]) < 1e-6) {
+                if (Math.abs(next + b - ans[curi][curj][curk][curl]) < 1E-6) {
+                //if (Math.abs(next + b - ans[curi][curj][curk][curl]) < 0.000001) {
                     cur += b;
                     items[days - curi] = item;
                     curi--;
@@ -143,7 +155,22 @@ public class MetodoDinamico implements IMetodo {
                 }
             }
         }
+        
         lucroMax = best;
+        
+        for(int i = 0; i < items.length; i++)
+        {
+            Prato prato = menu.getPrato(items[i] + 1);
+            if(prato != null)
+                pratosLucro.add(prato);
+        }
+        
+        return pratosLucro;
+    }
+
+    public double getLucroMax() {
         return lucroMax;
     }
+    
+    
 }
